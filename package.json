@@ -1,0 +1,23 @@
+{
+  "name": "proyect_01_autentications",
+  "version": "1.0.0",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/JhonnXavierMT/login.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/JhonnXavierMT/login/issues"
+  },
+  "homepage": "https://github.com/JhonnXavierMT/login#readme",
+  "description": "",
+  "dependencies": {
+    "express": "^5.1.0"
+  }
+}
