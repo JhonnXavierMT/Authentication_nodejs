@@ -1,18 +1,52 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Login</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dashboard</title>
+  <!-- Icono para la pestaña del navegador -->
+  <!-- Carga la librería de iconos -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <link rel="icon" type="image/png" href="img/run.png">
   <link rel="stylesheet" href="css/stilos_login.css">
 </head>
+
 <body>
+  <header>
+    <h1>Panel de Control</h1> <!-- Título principal del dashboard -->
+  </header>
 
-  <div class="login-box">
+  <nav class="login-box">
+
     <button>
-        <a style="color: aliceblue;width: 100%;text-decoration: none;" href="/logout">Logout</a>
+      <a style="color: aliceblue;width: 100%;text-decoration: none;" href="#">Inicio</a>
     </button>
-  </div>
 
+
+    <button>
+      <a style="color: aliceblue;width: 100%;text-decoration: none;" href="#">Usuarios</a>
+    </button>
+
+
+    <button>
+      <a style="color: aliceblue;width: 100%;text-decoration: none;" href="/logout">Logout</a>
+    </button>
+
+  </nav>
+
+  <main>
+    <h2>Dashboard</h2> <!-- Sección de estadísticas -->
+
+    <section style="width:100%;display: flex;justify-content: center;align-items: center;">
+      <img src="img/run.png" width="50%" alt="">
+    </section>
+  </main>
+
+  <footer>
+    <p>&copy; 2025 Jhonn Dev. Todos los derechos reservados.</p>
+  </footer>
 </body>
+
 </html>
