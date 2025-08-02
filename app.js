@@ -1,11 +1,12 @@
-const express = require('express');
-const app = express();
+const express = require('express')
+const app = express()
 const path = require("path")
 const routes=require("./routes/route")
-const chalk=require("chalk");
+const chalk=require("chalk")
 const morgan =require("morgan")
 const cookieParser=require("cookie-parser")
-const session = require('express-session');
+const session = require('express-session')
+const flash= require("connect-flash")
 
 app.use(cookieParser());
 app.use(morgan("common"));
@@ -17,6 +18,7 @@ app.use("/img", express.static(path.join(__dirname, "public", "img")));
 app.set("view engine", "ejs"); // EJS setup
 app.set("views", path.join(__dirname, "views")); 
 
+
 app.use(
     session({
         secret:"Hol@mundo123789(informta()23CoXD)",
@@ -27,7 +29,14 @@ app.use(
         },
     })
 );
+//usamos el flash
+app.use(flash())
+app.use((req,res,next)=>{
+    res.locals.info=req.flash('info');
+    next();
+})
 
+// Middleware para leer datos del body
 app.use(express.urlencoded({extended:true}));
 
 

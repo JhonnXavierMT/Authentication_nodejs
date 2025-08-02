@@ -41,12 +41,20 @@ body {
     border-radius: 20px;
     padding: 40px;
     width: 350px;
+    height: 100vh;
     box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.2);
     text-align: center;
     animation: fadeIn 1s ease forwards;
     opacity: 0;
 }
-
+.redes{
+    display: flex;
+    justify-content: center;
+}
+.redes-button {
+    cursor: pointer;
+    margin: 10px;
+}
 @keyframes fadeIn {
     to {
         opacity: 1;
@@ -70,21 +78,21 @@ body {
 }
 
 /* Inputs */
-.login-box input[type="text"],
-.login-box input[type="password"] {
+
+.login-box input {
     width: 100%;
     padding: 12px;
     margin: 10px 0;
     border: none;
     border-radius: 10px;
-    background: rgba(255, 255, 255, 0.2);
+    background: rgba(255, 250, 250, 0.375);
     color: white;
     font-size: 16px;
     outline: none;
     transition: background 0.3s;
 }
 
-.login-box input[type="text"]::placeholder,
+.login-box input[type="email"]::placeholder,
 .login-box input[type="password"]::placeholder {
     color: #e0e0e0;
 }
@@ -104,9 +112,10 @@ body {
     color: white;
     font-size: 16px;
     cursor: pointer;
-    margin-top: 20px;
+    margin: 10px;
     transition: background 0.3s ease;
 }
+/* Botón */
 
 .login-box button:hover {
     background-color: #4a2071;

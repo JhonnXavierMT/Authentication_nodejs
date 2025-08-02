@@ -1,0 +1,14 @@
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11">
+    
+</script>
+<% if (info && info.length > 0) { %>
+<script>
+  Swal.fire({
+    icon: 'info',
+    title: 'informacion procesada',
+    text: '<%= info[0] %>',
+    timer: 3000,
+    showConfirmButton: false
+  });
+</script>
+<% } %>

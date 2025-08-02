@@ -10,14 +10,28 @@
 <body>
 
   <div class="login-box">
-    <img src="img/run.png" width="200px">
+    <img src="img/run.png" width="150px">
     <form method="POST" action="/login" >
-      <input type="text" placeholder="Nombre de usuario" required name="username">
+      <input type="email" placeholder="Nombre de usuario" required name="email">
       <input type="password" placeholder="Contraseña" required
       name="password">
       <button type="submit">Iniciar sesión</button>
+      <div>
+        <a href="#">¿olvidaste tu Contraseña?</a>
+      </div>
+      <div class="redes">
+        <div class="redes-button">
+          <img width="25px" src="img/google.png" alt="">
+        </div>
+        <div class="redes-button">
+          <img width="25px" src="img/facebook.png" alt="">
+        </div>
+      </div>
+      <div>
+        <h5>¿No tienes cuenta? <a href="/register">crear cuenta</a></h5>
+      </div>
     </form>
   </div>
-
+<%- include('layouts/footer') %>
 </body>
 </html>
