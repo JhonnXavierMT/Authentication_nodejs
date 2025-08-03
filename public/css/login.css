@@ -10,7 +10,7 @@ body {
     margin: 0;
     padding: 0;
     font-family: 'Segoe UI', sans-serif;
-    background: linear-gradient(135deg, #667eea, #764ba2);
+    background: linear-gradient(135deg, #667eea, #5e318c);
     animation: gradientBG 10s ease infinite;
     background-size: 400% 400%;
     display: grid;
@@ -39,13 +39,16 @@ body {
     background: rgba(255, 255, 255, 0.1);
     backdrop-filter: blur(10px);
     border-radius: 20px;
-    padding: 40px;
+    padding: 0px 40px;
     width: 350px;
     height: 100vh;
     box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.2);
     text-align: center;
     animation: fadeIn 1s ease forwards;
     opacity: 0;
+}
+.logo{
+    width: 150px;
 }
 .redes{
     display: flex;

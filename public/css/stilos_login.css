@@ -11,7 +11,6 @@ body {
     padding: 0;
     font-family: 'Segoe UI', sans-serif;
     background: linear-gradient(135deg, #667eea, #764ba2);
-    animation: gradientBG 10s ease infinite;
     background-size: 400% 400%;
     display: grid;
     grid-template-areas:
@@ -27,7 +26,7 @@ body {
 /* 🧩 Posicionamos cada zona */
 header {
     grid-area: header;
-    
+
     color: white;
     padding: 1rem;
 }
@@ -66,26 +65,12 @@ footer {
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
-@keyframes gradientBG {
-    0% {
-        background-position: 0% 50%;
-    }
-
-    50% {
-        background-position: 100% 50%;
-    }
-
-    100% {
-        background-position: 0% 50%;
-    }
-}
-
 /* Contenedor del formulario */
 .login-box {
     background: rgba(255, 255, 255, 0.1);
     backdrop-filter: blur(10px);
-    padding: 40px;
-    width: 250px;
+    padding: 10px;
+    width: 200px;
     box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.2);
     text-align: center;
     animation: fadeIn 1s ease forwards;
@@ -93,10 +78,12 @@ footer {
     grid-area: nav;
     color: white;
 }
-h2{
+
+h2 {
     color: rgb(219, 219, 219);
     font-family: Arial, Helvetica, sans-serif;
 }
+
 @keyframes fadeIn {
     to {
         opacity: 1;
@@ -123,6 +110,9 @@ h2{
 .login-box input[type="text"],
 .login-box input[type="password"] {
     width: 100%;
+    position: relative;
+    display: flex;
+    align-items: center;
     padding: 12px;
     margin: 10px 0;
     border: none;
@@ -132,6 +122,13 @@ h2{
     font-size: 16px;
     outline: none;
     transition: background 0.3s;
+}
+.toggle-eye{
+    position: absolute;
+    right: 10px;
+    cursor: pointer;
+    font-size: 1.2rem;
+    color: #667eea;
 }
 
 .login-box input[type="text"]::placeholder,
@@ -149,8 +146,7 @@ h2{
     width: 100%;
     padding: 12px;
     border: none;
-    border-radius: 10px;
-    background-color: #5f2c82;
+    background-color: transparent;
     color: white;
     font-size: 16px;
     cursor: pointer;
@@ -159,5 +155,5 @@ h2{
 }
 
 .login-box button:hover {
-    background-color: #4a2071;
+    background-color: #667eea;
 }

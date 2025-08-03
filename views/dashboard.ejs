@@ -9,13 +9,13 @@
   <!-- Carga la librería de iconos -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
-  <link rel="icon" type="image/png" href="img/run.png">
+  <link rel="icon" type="image/png" href="img/programer.png">
   <link rel="stylesheet" href="css/stilos_login.css">
 </head>
 
 <body>
   <header>
-    <h1>Panel de Control</h1> <!-- Título principal del dashboard -->
+    <h1>Panel de Control</h1>
   </header>
 
   <nav class="login-box">
@@ -37,10 +37,12 @@
   </nav>
 
   <main>
-    <h2>Dashboard</h2> <!-- Sección de estadísticas -->
+    <% if (user_email) { %>
+      <h2>Dashboard de <%= user_email %></h2>
+    <% } %>
 
     <section style="width:100%;display: flex;justify-content: center;align-items: center;">
-      <img src="img/run.png" width="50%" alt="">
+      <img src="img/programer.png" width="30%" alt="">
     </section>
   </main>
 

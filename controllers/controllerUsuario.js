@@ -2,13 +2,20 @@ const modeloUsers = require("../models/modelUsuario")
 const bcrypt=require("bcrypt")
 module.exports = {
 
-    inicioSession: function (req, res) {
+    inicioSession:async function (req, res) {
         const { email, password } = req.body;
 
-        modeloUsers.obtenerDatosUser(req.body.email, function (err, datos) {
+        modeloUsers.obtenerDatosUser(req.body.email,async function (err, datos) {
 
-            if (email === datos[0].email && password === datos[0].password) {
-                req.session.gmail = email;
+            if(!(datos && datos.length)){
+                req.flash('info', 'El usuario '+email+' no existe')
+                return res.redirect('/');
+            }
+            
+            const isValid= await bcrypt.compare(password,datos[0].password)//<== promesa
+            
+            if (email === datos[0].email && isValid) {
+                req.session.email = email;
                 res.redirect("/dashboard");
             } else {
                 res.send("fallo en inicio de session");
@@ -28,15 +35,16 @@ module.exports = {
         res.render("index");
     },
     dashboard: function (req, res) {
-        if (req.session.gmail) {
-            res.render("dashboard");
+        if (req.session.email) {
+
+            res.render("dashboard",{user_email:req.session.email});
         } else {
             res.redirect("/");
         }
     },
-    register: function (req, res) {
+    register: async function (req, res) {
 
-        modeloUsers.obtenerDatosUser(req.body.email, function (err, datos) {
+        modeloUsers.obtenerDatosUser(req.body.email,async function (err, datos) {
             if (typeof req.body.email !== 'string') throw new Error(" Debe ser de tipo string");
 
             if (datos && datos.length) {
@@ -49,11 +57,11 @@ module.exports = {
                 return res.redirect('/register');
 
             }
-            const hashedPassword=bcrypt.hashSync(req.body.password,10)
+            const hashedPassword= await bcrypt.hash(req.body.password,10)//<= promesa
 
             modeloUsers.insertar(req.body,hashedPassword, function (err) {
                 if (!err) {
-                    req.flash('info', 'Registrado con exito', req.body)
+                    req.flash('info', 'Registrado con exito')
                 }
                 else {
                     req.flash('info', 'NO Registrado')

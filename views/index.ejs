@@ -1,20 +1,23 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Login</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Autentication</title>
   <link rel="stylesheet" href="css/login.css">
-  <link rel="icon" type="image/png" href="img/run.png">
+  <link rel="icon" type="image/png" href="img/programer.png">
 </head>
+
 <body>
 
   <div class="login-box">
-    <img src="img/run.png" width="150px">
-    <form method="POST" action="/login" >
+    <img class="logo" src="img/programer.png">
+    <form method="POST" action="/login">
       <input type="email" placeholder="Nombre de usuario" required name="email">
-      <input type="password" placeholder="Contraseña" required
-      name="password">
+      <div style="display: flex; align-items: center;">
+        <input type="password" placeholder="Contraseña" required name="password" id="password">
+      </div>
       <button type="submit">Iniciar sesión</button>
       <div>
         <a href="#">¿olvidaste tu Contraseña?</a>
@@ -32,6 +35,17 @@
       </div>
     </form>
   </div>
-<%- include('layouts/footer') %>
+  <script>
+    const passwordInput = document.getElementById('password');
+    const toggleEye = document.getElementById('toggle');
+
+    toggleEye.addEventListener('click', () => {
+      const isPassword = passwordInput.getAttribute('type') === 'password';
+      passwordInput.setAttribute('type', isPassword ? 'text' : 'password');
+      toggleEye.textContent = isPassword ? '😑' : '😏'; // cambia icono
+    });
+  </script>
+  <%- include('layouts/footer') %>
 </body>
+
 </html>

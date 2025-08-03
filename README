@@ -1,0 +1,35 @@
+# 📌 Proyecto de authenticación 🔑
+
+## Inicio de session
+![Captura del Menu](./public/img/imgProyect/inicio%20de%20session.jpg)
+## Crear cuenta
+![Captura del Menu](./public/img/imgProyect/create_cuent.jpg)
+## Dashboard
+![Captura del Menu](./public/img/imgProyect/dashboard.jpg)
+
+## Descripción
+
+> Este proyecto es una una serie de buenas practicas al momento de realizar una autenticación e inicio de session mediante diferentes maneras con JavaScript, Nodejs y Express que permite mostrar la practica en backend.
+
+---
+
+### Contenido adicional:
+
+- ✅ Funcionalidades principales
+    - Conectar base de datos ✅
+    - insertar y hacer login ✅
+    - validar errores de forma basica.✅
+    - contraseña con sal ✅
+    - recuperar contraseña.
+    - inicio de session con google
+    - inicio de session con face o redes sociales.
+    - manejo de midlewares
+    - crear un esquema con clases para que funcione con cualquier base de datos (mysql mongodb y postgreds)
+    - próximamente 
+- 🛠️ Tecnologías usadas
+    - JavaScript.
+    - Nodejs.
+    - Express.
+    - Motor de Plantillas EJS.
+    - SweatAlert2.
+---
