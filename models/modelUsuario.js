@@ -15,5 +15,8 @@ const db = require("../config/conections")
     },
     obtenerDatosUser:function(email,callback) {
         db.query("SELECT * FROM users WHERE email=?",[email],callback);
+    },
+    validarUsuario:function (email,callback) {
+      db.query("UPDATE users SET validado=true WHERE email=?",[email],callback);  
     }
  }

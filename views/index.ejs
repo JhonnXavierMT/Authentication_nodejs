@@ -14,7 +14,7 @@
   <div class="login-box">
     <img class="logo" src="img/programer.png">
     <form method="POST" action="/login">
-      <input type="email" placeholder="Nombre de usuario" required name="email">
+      <input type="email" placeholder="Nombre de usuario" required name="email" autocomplete="email">
       <div style="display: flex; align-items: center;">
         <input type="password" placeholder="Contraseña" required name="password" id="password">
       </div>
@@ -36,14 +36,14 @@
     </form>
   </div>
   <script>
-    const passwordInput = document.getElementById('password');
+   /*  const passwordInput = document.getElementById('password');
     const toggleEye = document.getElementById('toggle');
 
     toggleEye.addEventListener('click', () => {
       const isPassword = passwordInput.getAttribute('type') === 'password';
       passwordInput.setAttribute('type', isPassword ? 'text' : 'password');
       toggleEye.textContent = isPassword ? '😑' : '😏'; // cambia icono
-    });
+    }); */
   </script>
   <%- include('layouts/footer') %>
 </body>

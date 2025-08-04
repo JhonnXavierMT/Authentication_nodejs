@@ -17,5 +17,6 @@ route.get("/dashboard", controllerusers.dashboard);
 
 route.get("/register", controllerusers.newregister);
 route.post("/newregister", controllerusers.register);
+route.get("/verificar/:token",controllerusers.verificarToken)
 
 module.exports = route
