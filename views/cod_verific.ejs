@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Recuperar Password</title>
+  <link rel="stylesheet" href="css/login.css">
+  <link rel="icon" type="image/png" href="img/run.png">
+</head>
+
+<body>
+  <div class="login-box" style="height: auto;">
+    <img src="img/programer.png" width="150px">
+    <form method="POST" action="/cod_verific">
+      <input type="text" placeholder="Codigo de verificacion" required name="codigo">
+      <button type="submit">Verificar codigo</button>
+    </form>
+  </div>
+
+  <%- include('layouts/footer') %>
+</body>
+
+</html>

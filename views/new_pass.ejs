@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Recuperar Password</title>
+  <link rel="stylesheet" href="css/login.css">
+  <link rel="icon" type="image/png" href="img/run.png">
+</head>
+
+<body>
+  <div class="login-box" style="height: auto;">
+    <img src="img/run.png" width="150px">
+    <form method="POST" action="/new_pass">
+      <input type="password" placeholder="nueva contraseña" required name="newpasswordOne">
+      <input type="password" placeholder="nueva contraseña" required name="newpasswordTwo">
+      <button type="submit">Actualizar Contraseña</button>
+    </form>
+  </div>
+
+  <%- include('layouts/footer') %>
+</body>
+
+</html>

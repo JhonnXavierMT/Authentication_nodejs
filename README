@@ -21,11 +21,10 @@
     - validar errores de forma basica.✅
     - contraseña con sal ✅
     - autenticacion de correo ✅ .
-    - recuperar contraseña 🔁
-    - inicio de session con google 🕑
+    - recuperar contraseña ✅
+    - inicio de session con google 🔁
     - inicio de session con face o redes sociales. 🕒
     - manejo de midlewares 🕓
-    - crear un esquema con clases para que funcione con cualquier base de datos (mysql mongodb y postgreds) 🕔
 - 🛠️ Tecnologías usadas
     - JavaScript.
     - Nodejs.

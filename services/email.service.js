@@ -13,13 +13,13 @@ const transporter = nodemailer.createTransport({
     },
 });
 
-async function enviarEmail(direccion, token) {
+async function enviarEmail(direccion, token,text_html) {
     try {
         return await transporter.sendMail({
             from: '"Jhonn dev" <jhonnmtxavier@gmail.com>', // sender address
             to: direccion, // list of receivers
             subject: "Verificacion de nueva cuenta", // Subject line
-            html: crear_html(token), // html body
+            html: text_html(token), // html body
         });
     } catch (err) {
         console.error("Error al enviar mail", err);
@@ -35,6 +35,16 @@ function crear_html(token) {
     <p>De click en el enlace para confirmar <a href="http://localhost:3000/verificar/${token}">click para confirmar</a> </p>
 </body>
 </html>`
-
 }
-module.exports = {enviarEmail}
+
+function crear_html_rec_Password(token) {
+    return `<!DOCTYPE html>
+<html lang="en">
+<body>
+    <h1>Usted recibio un codigo para recetear su Password</h1>
+    <p>Su codigo generado es: </p>
+    <h2>👉 ${token}</h2>
+</body>
+</html>`
+}
+module.exports = {enviarEmail,crear_html,crear_html_rec_Password}
