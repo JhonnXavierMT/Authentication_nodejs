@@ -7,6 +7,11 @@ const morgan =require("morgan")
 const cookieParser=require("cookie-parser")
 const session = require('express-session')
 const flash= require("connect-flash")
+//------------------Para conectarse a google start---------------
+const passport = require('passport');
+const configureGoogleStrategy =require("./middlewares/google")
+configureGoogleStrategy(passport)
+//------------------Para conectarse a google end---------------
 
 app.use(cookieParser());
 app.use(morgan("common"));
@@ -29,6 +34,11 @@ app.use(
         },
     })
 );
+
+app.use(passport.initialize());
+app.use(passport.session());
+
+
 //usamos el flash
 app.use(flash())
 app.use((req,res,next)=>{

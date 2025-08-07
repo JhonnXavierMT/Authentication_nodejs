@@ -37,10 +37,13 @@
   </nav>
 
   <main>
-    <% if (user_email) { %>
-      <h2>Dashboard de <%= user_email %></h2>
+    <% if (user_name) { %>
+      <h2>Dashboard de <%= user_name %></h2>
     <% } %>
-
+    <% if (user_email) { %>
+      <h2>correo: <%= user_email %></h2>
+    <% } %>
+    
     <section style="width:100%;display: flex;justify-content: center;align-items: center;">
       <img src="img/programer.png" width="30%" alt="">
     </section>

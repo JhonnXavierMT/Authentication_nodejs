@@ -45,9 +45,16 @@ module.exports = {
         res.render("index");
     },
     dashboard: function (req, res) {
-        if (req.session.email) {
-
-            res.render("dashboard", { user_email: req.session.email });
+        if (req.isAuthenticated() || req.session.email) {
+            const { name, email, photo } = req.user;
+            if (!req.session.email) {
+                req.session.email=email
+            }
+            res.render("dashboard", {
+                user_name: name,
+                user_email: req.session.email,
+                /* user_photo: photo?.[0]?.value || "/img/default-avatar.png" */
+            });
         } else {
             res.redirect("/");
         }
@@ -145,7 +152,7 @@ module.exports = {
             res.redirect("/")
         }
     },
-    vercodigoEmail:function (req,res) {
+    vercodigoEmail: function (req, res) {
         res.render("cod_verific")
     },
     verificarCodigo: function (req, res) {
@@ -165,16 +172,16 @@ module.exports = {
             res.redirect("/")
         }
     },
-    verNewPass:function (req,res) {
+    verNewPass: function (req, res) {
         res.render("new_pass")
     },
     actualizarPassword: async function (req, res) {
         if (req.body.newpasswordOne !== req.body.newpasswordTwo) {
             req.flash("info", "Las contraseñas no son iguales")
-            return  res.redirect('/new_pass');
+            return res.redirect('/new_pass');
         }
         const hashedPassword = await bcrypt.hash(req.body.newpasswordOne, 10)//<= promesa
- 
+
         modeloUsers.actualizarPass(req.session.datosUsuario.email, hashedPassword, function (err) {
             if (!err) {
                 req.flash('info', 'Actualizado con exito')
@@ -182,7 +189,7 @@ module.exports = {
             else {
                 req.flash('info', 'NO actualizado')
             }
-            req.session.email=req.session.datosUsuario.email
+            req.session.email = req.session.datosUsuario.email
             delete req.session.datosUsuario;
             res.redirect("/dashboard")
         })

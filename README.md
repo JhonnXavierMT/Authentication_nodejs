@@ -22,9 +22,9 @@
     - contraseña con sal ✅
     - autenticacion de correo ✅ .
     - recuperar contraseña ✅
-    - inicio de session con google 🔁
-    - inicio de session con face o redes sociales. 🕒
-    - manejo de midlewares 🕓
+    - inicio de session con google ✅
+    - inicio de session con face o redes sociales. 🔁
+    - manejo de midlewares en rutas protegidas🕓
 - 🛠️ Tecnologías usadas
     - JavaScript.
     - Nodejs.

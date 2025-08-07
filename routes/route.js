@@ -1,6 +1,15 @@
 const express = require('express')
 const route = express.Router()
 const controllerusers = require("../controllers/controllerUsuario")
+const passport = require('passport');
+
+route.get('/login/google', passport.authenticate('google'));
+
+route.get('/oauth2/redirect/google', passport.authenticate('google', {
+  successRedirect: '/dashboard',
+  failureRedirect: '/'
+}));
+
 //------------------Acciones------------------
 route.post("/login", controllerusers.inicioSession)
 route.get("/logout", controllerusers.logout);
