@@ -10,13 +10,21 @@ route.get('/oauth2/redirect/google', passport.authenticate('google', {
   failureRedirect: '/'
 }));
 
+route.get('/auth/facebook', passport.authenticate('facebook',{scope: ['email', 'public_profile']}));
+
+route.get('/oauth2/redirect/facebook',
+  passport.authenticate('facebook', { failureRedirect: '/' }),
+  function (req, res) {
+    res.redirect('/dashboard');
+  });
+
 //------------------Acciones------------------
 route.post("/login", controllerusers.inicioSession)
 route.get("/logout", controllerusers.logout);
 
 /* route.post("/register",controllerusers.register) */
 route.get("/protected", (res, req) => {
-    res.send("Hola")
+  res.send("Hola")
 });
 
 //----------------rutas vistas---------------------
@@ -26,7 +34,7 @@ route.get("/dashboard", controllerusers.dashboard);
 
 route.get("/register", controllerusers.newregister);
 route.post("/newregister", controllerusers.register);
-route.get("/verificar/:token",controllerusers.verificarToken)
+route.get("/verificar/:token", controllerusers.verificarToken)
 route.get("/share_cod", controllerusers.shareCodigo);
 route.post("/share_cod", controllerusers.mandarCodigo);
 route.get("/cod_verific", controllerusers.vercodigoEmail);

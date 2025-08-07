@@ -12,6 +12,10 @@ const passport = require('passport');
 const configureGoogleStrategy =require("./middlewares/google")
 configureGoogleStrategy(passport)
 //------------------Para conectarse a google end---------------
+//------------------Para conectarse a Facebook start---------------
+const configureFacebookStrategy =require("./middlewares/facebook")
+configureFacebookStrategy(passport)
+//------------------Para conectarse a facebook end---------------
 
 app.use(cookieParser());
 app.use(morgan("common"));

@@ -46,7 +46,7 @@ module.exports = {
     },
     dashboard: function (req, res) {
         if (req.isAuthenticated() || req.session.email) {
-            const { name, email, photo } = req.user;
+            const { name, email } = req.user;
             if (!req.session.email) {
                 req.session.email=email
             }

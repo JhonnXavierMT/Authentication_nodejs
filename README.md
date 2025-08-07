@@ -23,8 +23,8 @@
     - autenticacion de correo ✅ .
     - recuperar contraseña ✅
     - inicio de session con google ✅
-    - inicio de session con face o redes sociales. 🔁
-    - manejo de midlewares en rutas protegidas🕓
+    - inicio de session con facebook. ✅
+    - manejo de midlewares en rutas protegidas 🔁
 - 🛠️ Tecnologías usadas
     - JavaScript.
     - Nodejs.
