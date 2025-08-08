@@ -1,14 +1,32 @@
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11">
-    
-</script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
 <% if (info && info.length > 0) { %>
 <script>
   Swal.fire({
     icon: 'info',
     title: 'informacion',
     text: '<%= info[0] %>',
-    timer: 3000,
-    showConfirmButton: false
+    showConfirmButton: true
+  });
+</script>
+<% } %>
+<% if (success && success.length > 0) { %>
+<script>
+  Swal.fire({
+    icon: 'success',
+    title: 'Realizado',
+    text: '<%= success[0] %>',
+    showConfirmButton: true
+  });
+</script>
+<% } %>
+<% if (error && error.length > 0) { %>
+<script>
+  Swal.fire({
+    icon: 'error',
+    title: 'informacion',
+    text: '<%= error[0] %>',
+    confirmButtonText:"OK"
   });
 </script>
 <% } %>

@@ -20,7 +20,7 @@
     - insertar y hacer login ✅
     - validar errores de forma basica.✅
     - contraseña con sal ✅
-    - autenticacion de correo ✅ .
+    - autenticacion de correo ✅
     - recuperar contraseña ✅
     - inicio de session con google ✅
     - inicio de session con facebook. ✅

@@ -5,11 +5,12 @@ const db = require("../config/conections")
     obtener:function(callback){
         db.query("SELECT * FROM users",callback);
     },
-    insertar:function(datos,hashedPassword,callback) {
+    insertar:function(datos,hashedPassword,rol,callback) {
         db.query(
-            "INSERT INTO users (email,password) VALUES(?,?)",
+            "INSERT INTO users (email,password,rol) VALUES(?,?,?)",
             [datos.email,
-            hashedPassword
+            hashedPassword,
+            rol
             ],callback
         );
     },

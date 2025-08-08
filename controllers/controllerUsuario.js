@@ -8,7 +8,6 @@ const jsonwebtoken = require('jsonwebtoken');
 dotenv.config();
 
 module.exports = {
-
     inicioSession: async function (req, res) {
         const { email, password } = req.body;
 
@@ -26,6 +25,7 @@ module.exports = {
             // validar si esta validada la cuenta en true se pueda ingresar al inicio de session
             if (email === datos[0].email && isValid) {
                 req.session.email = email;
+                req.session.rol=datos[0].rol
                 res.redirect("/dashboard");
             } else {
                 res.send("fallo en inicio de session");
@@ -46,13 +46,14 @@ module.exports = {
     },
     dashboard: function (req, res) {
         if (req.isAuthenticated() || req.session.email) {
-            const { name, email } = req.user;
             if (!req.session.email) {
-                req.session.email=email
+                const { email } = req.user;
+                req.session.email = email
             }
             res.render("dashboard", {
-                user_name: name,
+                /* user_name: name, */
                 user_email: req.session.email,
+                user_rol:req.session.rol
                 /* user_photo: photo?.[0]?.value || "/img/default-avatar.png" */
             });
         } else {
@@ -60,40 +61,40 @@ module.exports = {
         }
     },
     register: async function (req, res) {
-        modeloUsers.obtenerDatosUser(req.body.email, async function (err, datos) {
-            if (typeof req.body.email !== 'string') throw new Error(" Debe ser de tipo string");
 
-            if (datos && datos.length) {
-                req.flash('info', 'El correo ' + datos[0].email + ' existe')
-                return res.redirect('/register');
-            }
-            if ((req.body.password).length <= 4) {
-                req.flash('info', 'Debe ser mayor a 4 el password')
-                return res.redirect('/register');
-            }
-            const hashedPassword = await bcrypt.hash(req.body.password, 10)//<= promesa
-            //Antes de enviar el token
-            const tokenVerificacion = jsonwebtoken.sign(
-                { email: req.body.email },
-                process.env.JWT_SECRET,
-                { expiresIn: process.env.JWT_EXPIRATION }
-            );
-            //mandamos para verificar el correo email
-            const email = await enviarEmaildeVerificacion.enviarEmail(req.body.email, tokenVerificacion, enviarEmaildeVerificacion.crear_html)
+        const hashedPassword = await bcrypt.hash(req.body.password, 10)//<= promesa
+        //Antes de enviar el token
+        const tokenVerificacion = jsonwebtoken.sign(
+            { email: req.body.email },
+            process.env.JWT_SECRET,
+            { expiresIn: process.env.JWT_EXPIRATION }
+        );
+        //mandamos para verificar el correo email
+        const email = await enviarEmaildeVerificacion.enviarEmail(req.body.email, tokenVerificacion, enviarEmaildeVerificacion.crear_html)
 
-            if (email.accepted === 0) {
-                return res(500).send({ status: "error", message: "Error al enviar el email de verificacion" })
+        if (email.accepted === 0) {
+            return res(500).send({ status: "error", message: "Error al enviar el email de verificacion" })
+        }
+        modeloUsers.obtener((err, datos) => {
+            let rol;
+            if (!req.body.rol) {
+                console.log(datos.length)
+                rol = datos.length > 0 ? 'user' : 'admin';
             }
-            modeloUsers.insertar(req.body, hashedPassword, function (err) {
+            else {
+                rol = req.body.rol;
+            }
+            modeloUsers.insertar(req.body, hashedPassword, rol, function (err) {
                 if (!err) {
-                    req.flash('info', 'Registrado con exito')
+                    req.flash('success', 'Registrado con exito Revise su email para verificar su cuenta')
                 }
                 else {
                     req.flash('info', 'NO Registrado')
                 }
-                res.redirect('/register');
+                res.redirect('/');
             })
         })
+
     },
     newregister: function (req, res) {
         res.render('registro')
@@ -113,6 +114,7 @@ module.exports = {
                     return res.redirect("/register")
                 }
                 req.session.email = decodificada.email;
+                req.flash("info", "bienvenido", req.session.email);
                 res.redirect("/dashboard");
             })
         } catch (error) {
