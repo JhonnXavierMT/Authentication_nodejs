@@ -1,23 +1,57 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Registro</title>
   <link rel="stylesheet" href="css/login.css">
   <link rel="icon" type="image/png" href="img/run.png">
 </head>
+
 <body>
 
   <div class="login-box" style="height: auto;">
     <img src="img/run.png" width="150px">
     <form method="POST" action="/newregister">
       <input type="email" placeholder="correo de usuario" required name="email">
-      <input type="password" placeholder="Contraseña" required
-      name="password">
+      <input type="password" placeholder="Contraseña" required name="password">
       <button type="submit">Crear cuenta</button>
     </form>
+    <% if (estado) { %>
+    <form method="POST" action="/enviarNewEmail">
+      <div id="contadorBox" style="display: flex; justify-content: space-around;">
+        <p>segundos de espera: </p>
+        <p id="contador"></p>
+      </div>
+      <button id="verificar" type="submit" style="background-color: gray;" disabled>Enviar Nuevamente </button>
+    </form>
+    <% } %>
   </div>
   <%- include('layouts/footer') %>
+  <script>
+    const cont = document.getElementById('contador');
+    const contadorBox = document.getElementById('contadorBox');
+    const boton = document.getElementById('verificar');
+    let segundos= 0;
+    
+    const intervalo = setInterval(()=>{
+      segundos++;
+      cont.textContent=segundos;
+      if (segundos >= 60) {
+        clearInterval(intervalo); // Detiene el contador
+        contadorBox.style.opacity='0'; // Lo oculta con transición
+        contadorBox.style.display='none'; // Lo oculta con transición
+        contadorBox.style.pointerEvents='none'; // Lo oculta con transición
+      }
+    },1000);
+
+    setTimeout(() => {
+      boton.disabled = false; // Activamos el botón
+      boton.style.backgroundColor='#5f2c82';
+      boton.textContent = 'Enviar Link de verificacion';
+    }, 60000); // 60000 milisegundos = 1 minuto
+  </script>
 </body>
+
 </html>

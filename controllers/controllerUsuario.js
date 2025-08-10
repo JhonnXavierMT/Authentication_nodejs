@@ -6,7 +6,17 @@ const { render } = require("ejs");
 const jsonwebtoken = require('jsonwebtoken');
 
 dotenv.config();
-
+const enviarEmails = async function (email_verificar) {
+    //Antes de enviar el token
+    const tokenVerificacion = jsonwebtoken.sign(
+        { email: email_verificar },
+        process.env.JWT_SECRET,
+        { expiresIn: process.env.JWT_EXPIRATION }
+    );
+    //mandamos para verificar el correo email
+    const email = await enviarEmaildeVerificacion.enviarEmail(email_verificar, tokenVerificacion, enviarEmaildeVerificacion.crear_html)
+    return email
+}
 module.exports = {
     inicioSession: async function (req, res) {
         const { email, password } = req.body;
@@ -25,7 +35,7 @@ module.exports = {
             // validar si esta validada la cuenta en true se pueda ingresar al inicio de session
             if (email === datos[0].email && isValid) {
                 req.session.email = email;
-                req.session.rol=datos[0].rol
+                req.session.rol = datos[0].rol
                 res.redirect("/dashboard");
             } else {
                 res.send("fallo en inicio de session");
@@ -45,6 +55,7 @@ module.exports = {
         res.render("index");
     },
     dashboard: function (req, res) {
+
         if (req.isAuthenticated() || req.session.email) {
             if (!req.session.email) {
                 const { email } = req.user;
@@ -53,55 +64,69 @@ module.exports = {
             res.render("dashboard", {
                 /* user_name: name, */
                 user_email: req.session.email,
-                user_rol:req.session.rol
+                user_rol: req.session.rol
                 /* user_photo: photo?.[0]?.value || "/img/default-avatar.png" */
             });
         } else {
             res.redirect("/");
         }
     },
+    dashboardAdmins: function (req, res) {
+        res.render("dashboardAdmin", {
+            /* user_name: name, */
+            user_email: req.session.email,
+            user_rol: req.session.rol
+            /* user_photo: photo?.[0]?.value || "/img/default-avatar.png" */
+        });
+    },
     register: async function (req, res) {
 
         const hashedPassword = await bcrypt.hash(req.body.password, 10)//<= promesa
-        //Antes de enviar el token
-        const tokenVerificacion = jsonwebtoken.sign(
-            { email: req.body.email },
-            process.env.JWT_SECRET,
-            { expiresIn: process.env.JWT_EXPIRATION }
-        );
-        //mandamos para verificar el correo email
-        const email = await enviarEmaildeVerificacion.enviarEmail(req.body.email, tokenVerificacion, enviarEmaildeVerificacion.crear_html)
-
+        const email = await enviarEmails(req.body.email)
         if (email.accepted === 0) {
             return res(500).send({ status: "error", message: "Error al enviar el email de verificacion" })
         }
+        req.session.TempEmail = req.body.email
         modeloUsers.obtener((err, datos) => {
             let rol;
             if (!req.body.rol) {
-                console.log(datos.length)
                 rol = datos.length > 0 ? 'user' : 'admin';
             }
             else {
                 rol = req.body.rol;
             }
             modeloUsers.insertar(req.body, hashedPassword, rol, function (err) {
+
                 if (!err) {
                     req.flash('success', 'Registrado con exito Revise su email para verificar su cuenta')
                 }
                 else {
                     req.flash('info', 'NO Registrado')
                 }
-                res.redirect('/');
+                res.redirect('/register?estado=true');
             })
         })
 
     },
     newregister: function (req, res) {
-        res.render('registro')
+        //investigar sobre el req.query
+        const estado = req.query.estado === 'true';
+        res.render('registro', { estado })
     },
-    //en caso de que no se verifique en los 15 min el token morira entonces crear una funcion que envien otro token para el email para verificar y en caso de que el usuario no envien ni verifique eliminar su cuenta
+    eviaremailnew: async function (req, res) {
+        console.log(req.session.TempEmail)
+        const email = await enviarEmails(req.session.TempEmail)
+        if (email.accepted === 0) {
+            req.flash('error', 'No se puede verificar su cuenta')
+        }
+        else {
+            req.flash('success', 'Revise su email para verificar su cuenta')
+        }
+        res.redirect('/register?estado=true')
+    },
     verificarToken: function (req, res) {
         try {
+            delete req.session.TempEmail;
             if (!req.params.token) {
                 return res.redirect("/");
             }

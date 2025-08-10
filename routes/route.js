@@ -3,6 +3,7 @@ const route = express.Router()
 const controllerusers = require("../controllers/controllerUsuario")
 const middlewareVerific=require("../middlewares/middw_verificar_datos")
 const passport = require('passport');
+const Admins=require('../middlewares/autentications_rol_admin_')
 
 route.get('/login/google', passport.authenticate('google'));
 
@@ -34,8 +35,11 @@ route.get("/protected", (res, req) => {
 route.get("/", controllerusers.index);
 
 route.get("/dashboard", controllerusers.dashboard);
+route.get("/dashboardAdmin",Admins.SoloAdmin, controllerusers.dashboardAdmins);
 // Crear una ruta protegida solo para el admi
 route.get("/register", controllerusers.newregister);
+route.post("/enviarNewEmail", controllerusers.eviaremailnew);
+
 route.post("/newregister",middlewareVerific.verificar, controllerusers.register);
 route.get("/verificar/:token", controllerusers.verificarToken)
 route.get("/share_cod", controllerusers.shareCodigo);
